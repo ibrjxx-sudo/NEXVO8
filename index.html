@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#092e29">
+  <meta name="description" content="NEXVO — مساحة عربية فاخرة للتواصل والمحادثات">
+  <title>NEXVO — رسائلك أقرب</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="sidebar" aria-label="قائمة المحادثات">
+      <header class="sidebar-header">
+        <a class="brand" href="#" aria-label="NEXVO، الصفحة الرئيسية">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L4 20l1.2-4a8.2 8.2 0 1 1 15-4.3Z"/><path d="M9 9.1c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4 0 .6.5.8 1.2 1.4 2 1.8.3.1.5.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.5.7c.3.1.4.3.4.5 0 .4-.2 1.2-.7 1.6-.5.5-1.2.7-1.9.7s-1.8-.3-3-.9c-1.5-.8-2.6-2-3.2-2.9-.6-1-.9-1.8-.9-2.6 0-.7.3-1.2.6-1.6Z"/></svg>
+          </span>
+          <span class="brand-name">NEXVO</span>
+          <svg class="verified-badge brand-verified-badge" viewBox="0 0 24 24" role="img" aria-label="NEXVO موثق"><path d="M12 1.7 14.7 3l3-.2 1.4 2.6 2.6 1.4-.2 3L22.8 12l-1.3 2.7.2 3-2.6 1.4-1.4 2.6-3-.2L12 22.8l-2.7-1.3-3 .2-1.4-2.6-2.6-1.4.2-3L1.2 12l1.3-2.7-.2-3 2.6-1.4 1.4-2.6 3 .2L12 1.7Z"/><path class="verified-check" d="m7.7 12.2 2.8 2.7 5.9-6"/></svg>
+        </a>
+        <div class="header-actions">
+          <button class="profile-shortcut" id="profileButton" type="button" aria-label="الملف الشخصي" title="الملف الشخصي">م</button>
+          <button class="icon-button" id="newChatButton" type="button" aria-label="إضافة جهة اتصال" title="اكتشف جهات الاتصال">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <button class="icon-button" id="menuButton" type="button" aria-label="المزيد" title="المزيد">
+            <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="header-menu" id="headerMenu" hidden></div>
+
+      <section class="sidebar-content">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">مساحتك الخاصة</p>
+            <h1 id="listTitle">الدردشات <span class="title-count" id="chatCount">0</span></h1>
+          </div>
+          <button class="text-icon-button" id="filterButton" type="button" aria-label="عرض غير المقروءة فقط" title="غير المقروءة فقط">
+            <svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10m-7 6h4"/></svg>
+          </button>
+        </div>
+
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4 4"/></svg>
+          <input id="searchInput" type="search" placeholder="ابحث في محادثاتك" autocomplete="off" aria-label="ابحث في المحادثات">
+          <kbd>⌘ K</kbd>
+        </label>
+
+        <div class="quick-filters" role="group" aria-label="تصفية المحادثات">
+          <button class="filter-chip active" data-filter="all" type="button">الكل</button>
+          <button class="filter-chip" data-filter="unread" type="button">غير مقروءة <span id="unreadCount">0</span></button>
+          <button class="filter-chip" data-filter="favorites" type="button">المفضلة</button>
+        </div>
+
+        <div class="conversation-list" id="conversationList" aria-live="polite"></div>
+        <div class="empty-state" id="emptyState" hidden>
+          <span class="empty-icon">⌕</span>
+          <strong>لا توجد محادثات هنا</strong>
+          <span>أضف جهة اتصال لبدء محادثة، أو غيّر البحث</span>
+        </div>
+      </section>
+
+      <nav class="bottom-nav" aria-label="التنقل الرئيسي">
+        <button class="nav-item active" data-view="chats" type="button" aria-label="الدردشات">
+          <svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-11 6.7L4 20l1.6-4.5A7.5 7.5 0 1 1 20 11.5Z"/></svg>
+          <span>الدردشات</span>
+        </button>
+        <button class="nav-item" data-view="updates" type="button" aria-label="التحديثات">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></svg>
+          <span>التحديثات</span>
+        </button>
+        <button class="nav-item" data-view="calls" type="button" aria-label="المكالمات">
+          <svg viewBox="0 0 24 24"><path d="M7 3.5 10 7l-2 2a14 14 0 0 0 7 7l2-2 3.5 3-.8 3c-.2.7-.9 1.1-1.6 1A17.5 17.5 0 0 1 3 5.9c-.1-.7.3-1.4 1-1.6Z"/></svg>
+          <span>المكالمات</span>
+        </button>
+        <button class="nav-item" data-view="settings" type="button" aria-label="الإعدادات">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.1.9-1.5 2.6-1.3-.5a7.7 7.7 0 0 1-1.5.9L16 20.5h-3l-.3-1.5a7.7 7.7 0 0 1-1.5-.9l-1.3.5-1.5-2.6 1.1-.9a7 7 0 0 1 0-1.8l-1.1-.9 1.5-2.6 1.3.5a7.7 7.7 0 0 1 1.5-.9l.3-1.5h3l.3 1.5a7.7 7.7 0 0 1 1.5.9l1.3-.5 1.5 2.6-1.1.9a7 7 0 0 1-.1 1.8Z"/></svg>
+          <span>الإعدادات</span>
+        </button>
+      </nav>
+    </aside>
+
+    <section class="chat-panel" id="chatPanel" aria-label="المحادثة">
+      <section class="app-page" id="appPage" hidden>
+        <header class="page-header">
+          <button class="icon-button page-back" id="pageBackButton" type="button" aria-label="العودة">
+            <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <h2 id="pageTitle"></h2>
+          <span class="page-header-spacer"></span>
+        </header>
+        <div class="page-content" id="pageContent"></div>
+      </section>
+      <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-art" aria-hidden="true">
+          <div class="art-orbit orbit-one"></div>
+          <div class="art-orbit orbit-two"></div>
+          <div class="art-bubble bubble-one">أهلاً 👋</div>
+          <div class="art-bubble bubble-two">كيف حالك؟</div>
+          <div class="art-phone"><span></span><i></i><b></b></div>
+          <div class="art-sparkle sparkle-one">✳</div>
+          <div class="art-sparkle sparkle-two">✦</div>
+        </div>
+        <p class="eyebrow">كل من تحب، في مكان واحد</p>
+        <h2>الحديث الحلو<br>يبدأ من هنا.</h2>
+        <p class="welcome-copy">اختر محادثة من القائمة وابدأ يومك بكلمة جميلة.</p>
+        <div class="encryption-note">
+          <svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3m-4 5v2"/></svg>
+          رسائلك خاصة ومحمية
+        </div>
+      </div>
+
+      <article class="conversation-view" id="conversationView" hidden>
+        <header class="chat-header">
+          <button class="icon-button back-button" id="backButton" type="button" aria-label="العودة إلى المحادثات">
+            <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="chat-person" id="chatPerson"></div>
+          <div class="chat-actions">
+            <button class="icon-button" id="callButton" type="button" aria-label="اتصال صوتي" title="اتصال صوتي">
+              <svg viewBox="0 0 24 24"><path d="M7 3.5 10 7l-2 2a14 14 0 0 0 7 7l2-2 3.5 3-.8 3c-.2.7-.9 1.1-1.6 1A17.5 17.5 0 0 1 3 5.9c-.1-.7.3-1.4 1-1.6Z"/></svg>
+            </button>
+            <button class="icon-button" id="videoButton" type="button" aria-label="اتصال فيديو" title="اتصال فيديو">
+              <svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></svg>
+            </button>
+            <button class="icon-button" id="chatMenuButton" type="button" aria-label="خيارات المحادثة" title="خيارات المحادثة">
+              <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+            </button>
+          </div>
+        </header>
+        <div class="chat-options-menu" id="chatOptionsMenu" hidden></div>
+        <div class="blocked-banner" id="blockedBanner" hidden>
+          <span>لقد حظرت جهة الاتصال هذه</span>
+          <button id="unblockContactButton" type="button">إلغاء الحظر</button>
+        </div>
+        <div class="attachment-menu" id="attachmentMenu" hidden>
+          <button type="button" data-attachment-action="media"><span class="attachment-option-icon gallery-icon">▧</span><span><strong>الصور والفيديو</strong><small>اختر من الاستوديو</small></span></button>
+          <button type="button" data-attachment-action="document"><span class="attachment-option-icon document-icon">▤</span><span><strong>مستند</strong><small>PDF وملفات أخرى</small></span></button>
+          <button type="button" data-attachment-action="camera"><span class="attachment-option-icon camera-icon">◉</span><span><strong>الكاميرا</strong><small>التقط صورة الآن</small></span></button>
+          <button type="button" data-attachment-action="location"><span class="attachment-option-icon location-icon">⌖</span><span><strong>الموقع</strong><small>شارك موقعك الحالي</small></span></button>
+        </div>
+        <div class="messages" id="messages" role="log" aria-live="polite" aria-label="الرسائل"></div>
+        <div class="media-draft" id="mediaDraft" hidden></div>
+        <form class="composer" id="messageForm">
+          <button class="composer-tool attach-button" id="attachButton" type="button" aria-label="إرفاق" title="إرفاق صورة أو مستند أو موقع">
+            <svg viewBox="0 0 24 24"><path d="m8.5 12.5 7.2-7.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a6 6 0 0 1-8.5-8.5l9-9"/></svg>
+          </button>
+          <button class="composer-tool emoji-button" id="emojiButton" type="button" aria-label="إضافة رمز تعبيري" title="رمز تعبيري">☺</button>
+          <textarea id="messageInput" rows="1" placeholder="اكتب رسالتك..." aria-label="نص الرسالة"></textarea>
+          <div class="recording-indicator" id="recordingIndicator" hidden><i></i><span>جارٍ تسجيل رسالة صوتية</span><time id="recordingTimer">00:00</time></div>
+          <button class="record-cancel-button" id="recordCancelButton" type="button" aria-label="إلغاء التسجيل" title="إلغاء التسجيل" hidden>×</button>
+          <button class="record-stop-button" id="recordStopButton" type="button" aria-label="إيقاف التسجيل وإرساله" title="إيقاف التسجيل وإرساله" hidden>■</button>
+          <button class="send-button" id="sendButton" type="submit" aria-label="إرسال الرسالة" title="إرسال" hidden>
+            <svg viewBox="0 0 24 24"><path d="m21 3-7.2 18-3.5-7.3L3 10.2 21 3Z"/><path d="M10.3 13.7 15 9"/></svg>
+          </button>
+          <button class="voice-button" id="voiceButton" type="button" aria-label="تسجيل رسالة صوتية" title="تسجيل رسالة صوتية">
+            <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21m-4 0h8"/></svg>
+          </button>
+          <input id="fileInput" type="file" accept="image/*,video/*" hidden>
+          <input id="documentInput" type="file" hidden>
+        </form>
+        <div class="emoji-picker" id="emojiPicker" hidden></div>
+      </article>
+    </section>
+  </main>
+  <dialog class="auth-dialog" id="authDialog" aria-label="تسجيل الدخول إلى NEXVO">
+    <div class="auth-brand"><span class="brand-mark">N</span><span class="auth-brand-name"><strong>NEXVO</strong><svg class="verified-badge brand-verified-badge" viewBox="0 0 24 24" role="img" aria-label="NEXVO موثق"><path d="M12 1.7 14.7 3l3-.2 1.4 2.6 2.6 1.4-.2 3L22.8 12l-1.3 2.7.2 3-2.6 1.4-1.4 2.6-3-.2L12 22.8l-2.7-1.3-3 .2-1.4-2.6-2.6-1.4.2-3L1.2 12l1.3-2.7-.2-3 2.6-1.4 1.4-2.6 3 .2L12 1.7Z"/><path class="verified-check" d="m7.7 12.2 2.8 2.7 5.9-6"/></svg></span><small>مساحتك الآمنة للتواصل</small></div>
+    <div class="auth-tabs" role="tablist">
+      <button class="auth-tab active" id="loginTab" type="button" role="tab">تسجيل الدخول</button>
+      <button class="auth-tab" id="registerTab" type="button" role="tab">إنشاء حساب</button>
+    </div>
+    <form class="auth-form" id="loginForm">
+      <p class="eyebrow">مرحبًا بعودتك</p><h2>سجّل دخولك</h2>
+      <label class="form-field">اسم المستخدم<input name="username" required autocomplete="username" minlength="3" placeholder="مثال: noura_7"></label>
+      <label class="form-field">كلمة المرور<input name="password" type="password" required autocomplete="current-password" minlength="8" placeholder="٨ أحرف على الأقل"></label>
+      <button class="primary-button" type="submit">دخول آمن</button>
+      <p class="auth-note">حسابك محفوظ على هذا الجهاز فقط في هذا النموذج.</p>
+    </form>
+    <form class="auth-form" id="registerForm" hidden>
+      <p class="eyebrow">ابدأ رحلتك مع NEXVO</p><h2>أنشئ حسابك</h2>
+      <button class="auth-photo" id="authPhotoButton" type="button"><span id="authPhotoPreview">+</span><span>أضف صورتك الشخصية <small>اختياري</small></span></button>
+      <label class="form-field">اسمك الظاهر<input name="displayName" required maxlength="40" autocomplete="name" placeholder="الاسم الذي يراه أصدقاؤك"></label>
+      <label class="form-field">اسم المستخدم<input name="username" required minlength="3" maxlength="24" pattern="[A-Za-z0-9_.]+" autocomplete="username" placeholder="حروف إنجليزية وأرقام"></label>
+      <label class="form-field">رقم الهاتف <small>اختياري</small><input name="phone" maxlength="24" inputmode="tel" autocomplete="tel" placeholder="+966 5X XXX XXXX"></label>
+      <label class="form-field">كلمة المرور<input name="password" type="password" required minlength="8" autocomplete="new-password" placeholder="٨ أحرف على الأقل"></label>
+      <button class="primary-button" type="submit">إنشاء حساب محلي</button>
+      <p class="auth-note">كلمة المرور لا تُحفظ كنص واضح. الحساب محلي ولا يتزامن مع أجهزة أخرى.</p>
+    </form>
+  </dialog>
+  <dialog class="app-dialog contacts-dialog" id="contactsDialog">
+    <div class="contacts-heading"><button class="dialog-close" type="button" data-close-dialog="contactsDialog" aria-label="إغلاق">×</button><p class="eyebrow">ابدأ تواصلًا جديدًا</p><h2>جهات الاتصال</h2><p>ابحث عن أصدقائك على هذا الجهاز أو أضف رقمًا يدويًا.</p></div>
+    <button class="primary-button contacts-import" id="importPhoneContacts" type="button">استيراد من جهات اتصال الهاتف</button>
+    <p class="contacts-support-note" id="contactsSupportNote">تُطلب صلاحية الوصول عند الضغط فقط. إن لم يدعم متصفحك الاستيراد، أضف الرقم يدويًا.</p>
+    <form id="newContactForm" class="new-contact-form">
+      <label class="form-field">اسم جهة الاتصال<input name="name" required maxlength="40" placeholder="الاسم"></label>
+      <label class="form-field">رقم الهاتف<input name="phone" required maxlength="24" inputmode="tel" placeholder="+966 5X XXX XXXX"></label>
+      <button class="primary-button" type="submit">إضافة وبدء محادثة</button>
+    </form>
+    <div class="contacts-list" id="contactsList"></div>
+    <p class="auth-note">تتم إضافة المحادثة على هذا الجهاز؛ وصول الرسائل للطرف الآخر يحتاج خادم NEXVO.</p>
+  </dialog>
+  <dialog class="app-dialog call-dialog" id="callDialog">
+    <form method="dialog">
+      <div class="call-avatar" id="callAvatar"></div>
+      <video id="callVideoPreview" class="call-video-preview" autoplay muted playsinline hidden></video>
+      <p class="eyebrow" id="callType">اتصال صوتي</p>
+      <h2 id="callName"></h2>
+      <p class="call-status" id="callStatus">جارٍ الاتصال...</p>
+      <div class="call-controls">
+        <button class="call-control" id="muteCallButton" type="button">كتم الصوت</button>
+        <button class="call-control" id="switchCameraButton" type="button" hidden>تبديل الكاميرا</button>
+        <button class="call-control end-call" id="endCallButton" type="button">إنهاء الاتصال</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="story-dialog" id="storyDialog" aria-label="عارض الحالات">
+    <div id="storyViewer"></div>
+  </dialog>
+  <dialog class="app-dialog permission-dialog" id="permissionDialog">
+    <form id="permissionForm" method="dialog">
+      <div class="permission-mark">✓</div>
+      <p class="eyebrow">إعداد لمرة واحدة</p>
+      <h2>امنح NEXVO الأذونات التي تحتاجها</h2>
+      <p class="permission-intro">نطلب إذن كل ميزة عند استخدامها فقط. يمكنك السماح أو الرفض من المتصفح في أي وقت.</p>
+      <div class="permission-items">
+        <div><span>🎙</span><span><strong>الميكروفون</strong><small>للمكالمات الصوتية</small></span></div>
+        <div><span>📷</span><span><strong>الكاميرا</strong><small>لمكالمات الفيديو والتقاط الصور</small></span></div>
+        <div><span>📍</span><span><strong>الموقع</strong><small>عند اختيار مشاركة موقعك</small></span></div>
+        <div><span>🔔</span><span><strong>الإشعارات</strong><small>لتنبيهات الرسائل (اختياري)</small></span></div>
+      </div>
+      <button class="primary-button" id="requestPermissionsButton" type="button">متابعة وإعداد الأذونات</button>
+      <button class="permission-later" id="skipPermissionsButton" type="button">ليس الآن</button>
+    </form>
+  </dialog>
+  <dialog class="media-dialog" id="mediaDialog">
+    <button class="story-close" type="button" data-close-dialog="mediaDialog" aria-label="إغلاق الصورة">×</button>
+    <div id="mediaViewer"></div>
+  </dialog>
+  <input id="storyInput" type="file" accept="image/*,video/*,.heic,.heif,.avif,.mov,.m4v,.3gp,.3g2,.mkv,.avi,.webm" multiple hidden>
+  <input id="profilePhotoInput" type="file" accept="image/*" hidden>
+  <input id="authPhotoInput" type="file" accept="image/*" hidden>
+  <input id="permissionCameraInput" type="file" accept="image/*" capture="environment" hidden>
+  <audio id="voicePlayback" hidden></audio>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

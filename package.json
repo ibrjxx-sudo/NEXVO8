@@ -1,0 +1,12 @@
+{
+  "name": "nexvo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NEXVO web application",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
